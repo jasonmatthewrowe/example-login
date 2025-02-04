@@ -57,4 +57,4 @@ function SignUp() {
       const hashedPassword = await bcrypt.hash(password, 10);
       users[username] = hashedPassword;
       localStorage.setItem('users', JSON.stringify(users));
-      setSuccess('User created
+      setSuccess('User created');
