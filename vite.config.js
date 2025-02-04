@@ -1,15 +1,22 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { cjsInterop } from 'vite-plugin-cjs-interop'
+import path from 'path'
 
+const __dirname = path.resolve();
+
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      'mock-aws-s3': path.resolve(__dirname, './src/empty.js'),
-      'aws-sdk': path.resolve(__dirname, './src/empty.js'),
-      'nock': path.resolve(__dirname, './src/empty.js'),
-      'bcrypt': 'bcryptjs'
-    }
-  }
-});
+  root: __dirname,
+  plugins: [
+    react(),
+    cjsInterop()
+  ],
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        '.js': 'jsx',
+      },
+    },
+  },
+})
